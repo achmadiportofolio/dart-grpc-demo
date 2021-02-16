@@ -1,4 +1,4 @@
-A sample command-line application with an entrypoint in `bin/`, library code
+A sample dart grpc server command-line application with an entrypoint in `bin/`, library code
 in `lib/`, and example unit test in `test/`.
 
 Created from templates made available by Stagehand under a BSD-style
