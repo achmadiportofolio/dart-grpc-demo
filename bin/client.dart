@@ -15,13 +15,23 @@ void main(args) async {
   //  response =  await stub.getAlbums(AlbumRequest()..id=1);
   // print('client response writeToJsonMap \n ${response.writeToJsonMap()}');
 
-  var response =  await stub.getAlbumWithPhotos(AlbumRequest());
-  print('client response getAlbumWithPhotos \n ${response}');
+  // var response =  await stub.getAlbumWithPhotos(AlbumRequest());
+  // // print('client response getAlbumWithPhotos \n ${response}');
   // print('client response getAlbumWithPhotos \n ${response.writeToJson()}');
-  // print('client response getAlbumWithPhotos \n ${response.writeToJsonMap()}');
-  response =  await stub.getAlbumWithPhotos(AlbumRequest()..id=3);
-  print('client response getAlbumWithPhotos \n ${response}');
+  // // print('client response getAlbumWithPhotos \n ${response.writeToJsonMap()}');
+  // response =  await stub.getAlbumWithPhotos(AlbumRequest()..id=3);
+  // // print('client response getAlbumWithPhotos \n ${response}');
   // print('client response getAlbumWithPhotos \n ${response.writeToJson()}');
-  // print('client response getAlbumWithPhotos with id :${AlbumRequest()..id}  \n ${response.writeToJsonMap()}');
+  // // print('client response getAlbumWithPhotos with id :${AlbumRequest()..id}  \n ${response.writeToJsonMap()}');
+
+  var photoStream = stub.getPhotos(AlbumRequest());
+  await for (var photo in photoStream) {
+    print('Received photo ${photo.url}');
+  }
+  photoStream = stub.getPhotos(AlbumRequest()..id=3);
+  await for (var photo in photoStream) {
+    print('Received filtered photo ${photo.url}');
+  }
+
   await channel.shutdown();
 }

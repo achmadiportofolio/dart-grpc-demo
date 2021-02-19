@@ -16,6 +16,7 @@ message Photo {
 service AlbumService{
     rpc getAlbums(AlbumRequest) returns (AlbumResponse){}
     rpc getAlbumWithPhotos(AlbumRequest) returns (AlbumResponse){}
+    rpc getPhotos(AlbumRequest) returns (stream Photo){}
 }
 message AlbumRequest{
     int32 id = 1;

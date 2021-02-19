@@ -78,6 +78,24 @@ class AlbumService extends AlbumServiceBase{
     // print('jsonPhoto $jsonPhoto');
     return Photo.fromJson('{ "1": ${jsonPhoto['albumId']}, "2": ${jsonPhoto['id']}, "3": "${jsonPhoto['title']}", "4": "${jsonPhoto['url']}" }');
   }
+
+  @override
+  Stream<Photo> getPhotos(Object call, AlbumRequest request) async* {
+    var photoList = photos;
+    if (request.id>0) {
+      photoList = photos.where((element) => element['albumId']==request.id).toList();
+      
+    }
+    for (final photo in photoList) {
+      yield Photo.fromJson('''{
+         "1": ${photo['albumId']}, 
+         "2": ${photo['id']}, 
+         "3": "${photo['title']}", 
+         "4": "${photo['url']}"
+          }
+      ''');
+    }
+  }
   
 }
 
