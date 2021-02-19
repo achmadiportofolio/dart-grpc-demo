@@ -13,6 +13,7 @@ class Album extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Album', createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
+    ..pc<Photo>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photos', $pb.PbFieldType.PM, subBuilder: Photo.create)
     ..hasRequiredFields = false
   ;
 
@@ -20,6 +21,7 @@ class Album extends $pb.GeneratedMessage {
   factory Album({
     $core.int id,
     $core.String title,
+    $core.Iterable<Photo> photos,
   }) {
     final _result = create();
     if (id != null) {
@@ -27,6 +29,9 @@ class Album extends $pb.GeneratedMessage {
     }
     if (title != null) {
       _result.title = title;
+    }
+    if (photos != null) {
+      _result.photos.addAll(photos);
     }
     return _result;
   }
@@ -68,6 +73,9 @@ class Album extends $pb.GeneratedMessage {
   $core.bool hasTitle() => $_has(1);
   @$pb.TagNumber(2)
   void clearTitle() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.List<Photo> get photos => $_getList(2);
 }
 
 class Photo extends $pb.GeneratedMessage {

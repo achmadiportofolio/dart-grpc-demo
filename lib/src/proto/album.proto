@@ -3,6 +3,7 @@ syntax = "proto3";
 message Album{
     int32 id=1;
     string title = 2;
+    repeated Photo photos = 3;
 }
 
 message Photo {
@@ -14,6 +15,7 @@ message Photo {
 
 service AlbumService{
     rpc getAlbums(AlbumRequest) returns (AlbumResponse){}
+    rpc getAlbumWithPhotos(AlbumRequest) returns (AlbumResponse){}
 }
 message AlbumRequest{
     int32 id = 1;

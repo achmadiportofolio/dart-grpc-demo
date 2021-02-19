@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:grpc/grpc.dart';
 // import 'package:portofolio_grpc_dart/portofolio_grpc_dart.dart' as portofolio_grpc_dart;
 import 'package:portofolio_grpc_dart/portofolio_grpc_dart.dart' ;
@@ -18,16 +20,56 @@ import 'package:portofolio_grpc_dart/portofolio_grpc_dart.dart' ;
 class AlbumService extends AlbumServiceBase{
   @override
   Future<AlbumResponse> getAlbums(ServiceCall call, AlbumRequest request) async{
+    if (request.id>0) {
+      return AlbumResponse()..albums.addAll(findAlbums(request.id));
+    }
     // TODO: implement getAlbums
     // throw UnimplementedError();
     // print('getalbums ${albums}');
     final albumList = albums.map((album) {
       // print('${album['title']}');
       // print(Album.fromJson('{"1": ${album['id']} , "2": ${album['title']} }'));
-       return Album.fromJson('{"1": ${album['id']} , "2": "${album['title']}" }');
+      return convertToAlbum(album);
+       
        }).toList();
        print('albumList ${albumList}');
     return AlbumResponse()..albums.addAll(albumList);
+  }
+
+  List<Album> findAlbums(int id) {
+    return albums.where((element) => element['id']==id)
+      .map((e) => convertToAlbum(e)).toList();
+      
+  }
+  Album convertToAlbum(Map album) {
+    return Album.fromJson('{"1": ${album['id']} , "2": "${album['title']}" }');
+  }
+
+  @override
+  Future<AlbumResponse> getAlbumWithPhotos(ServiceCall call, AlbumRequest request) async{
+    // TODO: implement getAlbumWithPhotos
+    // throw UnimplementedError();
+    print('ruun getAlbumWithPhotos \n');
+    return AlbumResponse()..albums.addAll(albums.map((json){
+      // print(' $json');
+        final album = convertToAlbum(json);
+        // print('album $album');
+        final photos = findPhotos(json);
+        // print('photos $photos');
+        return album..photos.addAll(photos);
+    }));
+  }
+
+  List<Photo> findPhotos(Map album) {
+    return photos.where((json) => json['albumId']==album['id']).map((e) => convertToPhoto(e)).toList();
+  }
+  Photo convertToPhoto(Map jsonPhoto) {
+    // 'albumId': 1,
+    // 'id': 27,
+    // 'title': 'sit asperiores est quos quis nisi veniam erras',
+    // 'url': '
+    // print('jsonPhoto $jsonPhoto');
+    return Photo.fromJson('{ "1": ${jsonPhoto['albumId']}, "2": ${jsonPhoto['id']}, "3": "${jsonPhoto['title']}", "4": "${jsonPhoto['url']}" }');
   }
   
 }

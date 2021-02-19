@@ -9,10 +9,14 @@ void main(args) async {
 
   );
   final stub = AlbumServiceClient(channel);
-  var response =  await stub.getAlbums(AlbumRequest());
-  // print('client response ${response}');
-  print('client response ${response.writeToJson()}');
-   response =  await stub.getAlbums(AlbumRequest()..id=1);
-  print('client response ${response.writeToJsonMap()}');
+  // var response =  await stub.getAlbums(AlbumRequest());
+  // print('client response \n ${response}');
+  // print('client response writeToJson\n ${response.writeToJson()}');
+  //  response =  await stub.getAlbums(AlbumRequest()..id=1);
+  // print('client response writeToJsonMap \n ${response.writeToJsonMap()}');
+  var response =  await stub.getAlbumWithPhotos(AlbumRequest());
+  print('client response getAlbumWithPhotos \n ${response}');
+  print('client response getAlbumWithPhotos \n ${response.writeToJson()}');
+  print('client response getAlbumWithPhotos \n ${response.writeToJsonMap()}');
   await channel.shutdown();
 }
