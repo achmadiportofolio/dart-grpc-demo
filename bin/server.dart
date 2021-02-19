@@ -49,7 +49,14 @@ class AlbumService extends AlbumServiceBase{
   Future<AlbumResponse> getAlbumWithPhotos(ServiceCall call, AlbumRequest request) async{
     // TODO: implement getAlbumWithPhotos
     // throw UnimplementedError();
-    print('ruun getAlbumWithPhotos \n');
+    // print('ruun getAlbumWithPhotos \n');
+     if (request.id>0) {
+      return AlbumResponse()..albums.addAll(albums.where((alb) => alb['id']==request.id).map((json){
+          final album = convertToAlbum(json);
+          final photos = findPhotos(json);
+          return album..photos.addAll(photos);
+      }));
+    }
     return AlbumResponse()..albums.addAll(albums.map((json){
       // print(' $json');
         final album = convertToAlbum(json);

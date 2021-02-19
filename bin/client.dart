@@ -14,9 +14,14 @@ void main(args) async {
   // print('client response writeToJson\n ${response.writeToJson()}');
   //  response =  await stub.getAlbums(AlbumRequest()..id=1);
   // print('client response writeToJsonMap \n ${response.writeToJsonMap()}');
+
   var response =  await stub.getAlbumWithPhotos(AlbumRequest());
   print('client response getAlbumWithPhotos \n ${response}');
-  print('client response getAlbumWithPhotos \n ${response.writeToJson()}');
-  print('client response getAlbumWithPhotos \n ${response.writeToJsonMap()}');
+  // print('client response getAlbumWithPhotos \n ${response.writeToJson()}');
+  // print('client response getAlbumWithPhotos \n ${response.writeToJsonMap()}');
+  response =  await stub.getAlbumWithPhotos(AlbumRequest()..id=3);
+  print('client response getAlbumWithPhotos \n ${response}');
+  // print('client response getAlbumWithPhotos \n ${response.writeToJson()}');
+  // print('client response getAlbumWithPhotos with id :${AlbumRequest()..id}  \n ${response.writeToJsonMap()}');
   await channel.shutdown();
 }
